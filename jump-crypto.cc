@@ -37,8 +37,7 @@ bool is_proud(char c) {
 }
 
 bool humble_string(const std::string& letter, int start, int* max_window, int* proud_chars) {
-    // std::cout << "start " << start << " window " << *window << std::endl;
-    int from = start + *max_window;
+    int from = start + *max_window - 1;
     int current_proud = *proud_chars;
     bool found = false;
     
@@ -48,12 +47,10 @@ bool humble_string(const std::string& letter, int start, int* max_window, int* p
             *proud_chars = current_proud;
         }
 
-        int window = i - start;
+        int window = i - start + 1;
         
         // is humble
-        // std::cout << "start " << start << " current proud " << current_proud << std::endl;
-        if (current_proud <= 2 * (window + 1 - current_proud)) {
-            // std::cout << "found start " << start << " length " << length << std::endl;
+        if (current_proud <= 2 * (window - current_proud)) {
             *max_window = window;
             *proud_chars = current_proud;
             found = true;
@@ -70,13 +67,13 @@ std::string humble_string(const std::string& letter) {
     }
     std::vector<int> humble_length;
     int start = 0;
-    int max_window = 0;
+    int max_window = 1;
     int proud_chars = 0;
-    for (int start = 0; start + max_window < letter.size(); start++) {
+    for (int start = 0; start + max_window <= letter.size(); start++) {
         
         bool found = humble_string(letter, start, &max_window, &proud_chars);
         if (found) {
-            humble_length.push_back(max_window + 1);
+            humble_length.push_back(max_window);
         }
         proud_chars -= is_proud(letter[start]);
     }
@@ -86,9 +83,9 @@ std::string humble_string(const std::string& letter) {
     }
     int num = 0;
     for (int i : humble_length) {
-        num += (i == max_window + 1);
+        num += (i == max_window);
     }
-    return std::to_string(max_window + 1) + " " + std::to_string(num);
+    return std::to_string(max_window) + " " + std::to_string(num);
 }
 
 int main() {
