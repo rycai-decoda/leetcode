@@ -26,14 +26,12 @@ public:
         
         
         while (current_ != nullptr) {
-            cout << "push " << current_->val;
             stack_.push(current_);
             current_ = current_->left;
         }
         
         TreeNode* node = stack_.top();
         stack_.pop();
-        cout << "pop " << node->val;
         int val = node->val;
         current_ = node->right;
         
