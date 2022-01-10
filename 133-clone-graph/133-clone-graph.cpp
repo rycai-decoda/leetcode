@@ -34,7 +34,6 @@ public:
         while (!q.empty()) {
             Node* n = q.front();
             q.pop();
-            cout << "copying " << n->val << endl;
             
             for (Node* adjacent : n->neighbors) {
                 
