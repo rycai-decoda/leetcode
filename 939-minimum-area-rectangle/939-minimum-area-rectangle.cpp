@@ -11,7 +11,7 @@ public:
         });
         
         // map from "y1,y2" to x.
-        std::unordered_map<int, int> x_map;
+        std::unordered_map<long, int> x_map;
         int area = INT_MAX;
         for (int i = 0; i < points.size();) {
             int x = points[i][0];
@@ -27,7 +27,8 @@ public:
                 int y2 = points[j][1];
                 // std::cout << "i " << i << " j " << j << std::endl;
                 // std::cout << "x " << x << " y1 " << y1 << " y2 " << y2 << std::endl;
-                int key = 40001 * y1 + y2;
+                
+                long key = (((long)y1) << 32 ) + y2;
                 // std::string key = std::to_string(y1) + "," + std::to_string(y2);
                 if (x_map.count(key) == 0) {
                     x_map[key] = x;
