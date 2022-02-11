@@ -74,6 +74,10 @@ public:
             }
             (*visited)[y][x] = false;
         }
+        
+        if (child->children.empty()) {
+            root->children.erase(c);
+        }
  
         
         return;      
